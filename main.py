@@ -26,7 +26,7 @@ def line_graph(borough_df):
     plt.xlabel("Year")
     plt.ylabel("Population")
     plt.title(f"{name} resident population")
-    plt.savefig('figure1.png')
+    plt.savefig("figure1.png",bbox_inches="tight")
     plt.show()
     
 def london_line(london_df,sub_reg):
@@ -55,7 +55,7 @@ def london_line(london_df,sub_reg):
         plt.xlabel("Year")
         plt.ylabel("Population")
     
-    plt.savefig('figure2.png')
+    plt.savefig("figure2.png")
     plt.show()
 
 def pie_chart(london_df,sub_reg):
@@ -78,7 +78,7 @@ def pie_chart(london_df,sub_reg):
     plt.figure()
     plt.pie(reg_sum,labels=sub_reg_names,autopct="%1.1f%%")
     plt.title("2020 Greater London Population by Sub-region")
-    plt.savefig('figure3.png')
+    plt.savefig("figure3.png")
     plt.show()
 
 def bar_chart(left_borough, right_borough):
@@ -107,7 +107,9 @@ def bar_chart(left_borough, right_borough):
     plt.title(f"{left_name} and {right_name} population between 2000 and 2020")
     plt.xticks(years)
     plt.xlim(1998,2022)
-    plt.savefig('figure4.png')
+    plt.xlabel("Year")
+    plt.ylabel("Population")
+    plt.savefig("figure4.png",bbox_inches="tight")
     plt.show()
     
     
