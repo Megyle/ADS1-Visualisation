@@ -26,6 +26,7 @@ def line_graph(borough_df):
     plt.xlabel("Year")
     plt.ylabel("Population")
     plt.title(f"{name} resident population")
+    plt.savefig('figure1.png')
     plt.show()
     
 def london_line(london_df,sub_reg):
@@ -54,6 +55,7 @@ def london_line(london_df,sub_reg):
         plt.xlabel("Year")
         plt.ylabel("Population")
     
+    plt.savefig('figure2.png')
     plt.show()
 
 def pie_chart(london_df,sub_reg):
@@ -76,6 +78,38 @@ def pie_chart(london_df,sub_reg):
     plt.figure()
     plt.pie(reg_sum,labels=sub_reg_names,autopct="%1.1f%%")
     plt.title("2020 Greater London Population by Sub-region")
+    plt.savefig('figure3.png')
+    plt.show()
+
+def bar_chart(left_borough, right_borough):
+    """
+    Takes two dataframes of london boroughs and creates a bar plot 
+    allowing their populations over the years to be compared.
+    """
+    #getting the name of each borough
+    left_name = left_borough["LA name"].iloc[0]
+    right_name = right_borough["LA name"].iloc[0]
+
+    plt.figure()
+    #setting a custom range of years for better readability
+    years = [2000, 2004, 2008, 2012, 2016, 2020]
+    #setting offset for left bar
+    left_years = [i-1 for i in years]
+    left_borough = left_borough[[str(i) for i in years]].T.iloc[:,0]
+    plt.bar(left_years, left_borough, width=1.5,label=left_name)
+    
+    #setting offset for right bar
+    right_years = [i+1 for i in years]
+    right_borough = right_borough[[str(i) for i in years]].T.iloc[:,0]
+    plt.bar(right_years, right_borough, width=1.5,label=right_name)
+    
+    plt.legend()
+    plt.title(f"{left_name} and {right_name} population between 2000 and 2020")
+    plt.xticks(years)
+    plt.xlim(1998,2022)
+    plt.savefig('figure4.png')
+    plt.show()
+    
     
 if __name__ == "__main__":
     #reading data sheet
@@ -112,3 +146,8 @@ if __name__ == "__main__":
     london_line(london_df,sub_reg)
     #creating a pie chart for all london boroughs
     pie_chart(london_df,sub_reg)
+    
+    #selecting a specific row from london_df
+    camden_df = london_df.loc[names == "Camden"]
+    #creating a bar graph of two london boroughs
+    bar_chart(barnet_df,camden_df)
